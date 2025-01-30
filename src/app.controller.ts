@@ -42,6 +42,7 @@ export class AppController {
     return result;
   }
 
+  //untuk upload foto mahasiswa
   @Post('mahasiswa/:nim/upload')
   @ApiConsumes("multipart/form-data")
   @ApiBody({

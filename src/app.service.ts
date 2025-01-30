@@ -15,6 +15,7 @@ export class AppService {
     private readonly prisma: PrismaService
   ) {}
 
+  //untuk mengupload foto mahasiswa
   async uploadMahasiswaFoto(file: Express.Multer.File, nim: string) {
     const mahasiswa = await this.prisma.mahasiswa.findFirst({ where: { nim } });
     if (!mahasiswa) throw new NotFoundException('Mahasiswa Tidak Ditemukan');
