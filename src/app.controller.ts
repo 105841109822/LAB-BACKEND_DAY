@@ -1,18 +1,33 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Res, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Res, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
 import { Response } from 'express';
 import { AppService } from './app.service';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes} from '@nestjs/swagger';
 import { CreateMahasiswaDTO } from './dto/create-mahasiswa.dto';
 import { RegisterUserDTO } from './dto/register-user.dto';
 import { LoginDTO } from './dto/login.dto';
-import { plainToClass, plainToInstance } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { User } from './entity/user.entity';
 import { UserDecorator } from './user.decorator';
 import { AuthGuard } from './auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
+
+  @Post("register")
+  @ApiBody({type : RegisterUserDTO})
+  register(@Body() user : RegisterUserDTO) {
+    return this.appService.register(user)
+  }
+
+  @Get("/auth")
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  auth(@UserDecorator() user : User) {
+    return user
+  }
 
   @Post("login") 
   @ApiBody({
@@ -26,26 +41,30 @@ export class AppController {
     result.user = plainToInstance(User, result.user);
     return result;
   }
+
+  @Post('mahasiswa/:nim/upload')
+  @ApiConsumes("multipart/form-data")
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor(`file`))
+  async uploadMahasiswaFoto(@UploadedFile() file: Express.Multer.File, @Param('nim') nim: string) {
+    if (!file) throw new BadRequestException('File tidak boleh kosong');
+    return this.appService.uploadMahasiswaFoto(file, nim);
+  }
   
-  @Post("register")
-  @ApiBody({type : RegisterUserDTO})
-  register(@Body() user : RegisterUserDTO) {
-    return this.appService.register(user)
-  }
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
-  @Get("mahasiswa")
-  getMahasiswa() {
-    return this.appService.getMahasiswa();
-  }
-
-  @Get("mahasiswa/:nim")
-  getMahasiswaByNim(@Param("nim") nim : string) {
-    return this.appService.getMahasiswByNim(nim)
+  @Get('mahasiswa/:nim/foto')
+  async getMahasiswaFoto(@Param('nim') nim: string, @Res() res: Response) {
+    const filename = await this.appService.getMahasiwaFoto(nim);
+    return res.sendFile(filename, { root: 'uploads' });
   }
 
   @Post("mahasiswa")
@@ -65,11 +84,13 @@ export class AppController {
     return this.appService.updateMahasiswa(nim, data)
   }
 
-  @Get("/auth")
-  @UseGuards(AuthGuard)
-  @ApiBearerAuth()
-  auth(@UserDecorator() user : User) {
-    return user
+  @Get("mahasiswa")
+  getMahasiswa() {
+    return this.appService.getMahasiswa();
   }
 
+  @Get("mahasiswa/:nim")
+  getMahasiswaByNim(@Param("nim") nim : string) {
+    return this.appService.getMahasiswByNim(nim)
+  }
 }
