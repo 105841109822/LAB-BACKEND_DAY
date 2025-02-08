@@ -4,13 +4,15 @@ import { AppService } from './app.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ProfileModule } from './profile/profile.module';
 import { PrismaService } from './prisma';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
     JwtModule.register({
       secret: "18291206",
     }),
-    ProfileModule],
+    ProfileModule,
+    ChatModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],  
 })
