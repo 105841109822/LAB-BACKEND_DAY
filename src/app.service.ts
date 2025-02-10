@@ -158,4 +158,20 @@ export class AppService {
 
     return this.prisma.mahasiswa.findMany();
   }
+
+  async searchMahasiswa(nim?: string) {
+    try {
+      if (nim) {
+        const mahasiswa = await this.prisma.mahasiswa.findUnique({
+          where: { nim },
+        });
+        return mahasiswa ? [mahasiswa] : [];
+      }
+      
+      // Jika nim tidak diberikan, kembalikan daftar kosong
+      return [];
+    } catch (error) {
+      throw new InternalServerErrorException('Ada masalah pada server');
+    }
+  }
 }

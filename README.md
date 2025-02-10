@@ -24,41 +24,84 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# 🚀 Lab Backend API
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Lab Backend adalah proyek backend berbasis Node.js dan NestJS yang menyediakan API untuk memproses data, mengelola user, serta mendukung komunikasi real-time dengan WebSocket.
 
-## Project setup
+## ✨ Fitur Utama
+- CRUD Data User
+- Autentikasi dan Otorisasi JWT
+- Dokumentasi API menggunakan Swagger
+- Komunikasi real-time menggunakan WebSocket
+- Manajemen database dengan PostgreSQL
 
-```bash
-$ npm install
-```
+## 💻 Tech Stack
 
-## Compile and run the project
+*Client:* [Swagger](https://swagger.io/), [Socket.io](https://socket.io/)
+- Swagger: Swagger pada sisi client digunakan untuk menguji dan mendokumentasikan API yang disediakan oleh server. Ini memungkinkan pengguna berinteraksi dengan endpoint server langsung dari antarmuka web.
+- Socket.io (Client Side): Socket.io juga berjalan di sisi client sebagai library JavaScript yang membuka koneksi WebSocket ke server.
 
-```bash
-# development
-$ npm run start
+*Server:* [Node.js](https://nodejs.org/), [NestJS](https://nestjs.com/), [PostgreSQL](https://www.postgresql.org/), [Socket.io](https://socket.io/)
+- Node.js: Node.js adalah lingkungan eksekusi JavaScript di server yang menjalankan aplikasi backend, termasuk API RESTful dan WebSocket.
+- NestJS: NestJS adalah framework yang berjalan di atas Node.js untuk mengembangkan backend aplikasi dengan arsitektur modular dan dukungan lengkap terhadap API REST serta WebSocket.
+- PostgreSQL: PostgreSQL adalah database server yang menyimpan data aplikasi, yang diakses oleh Node.js atau NestJS melalui query SQL.
+- Socket.io (Server Side): Digunakan di sisi server untuk berkomunikasi dengan klien secara real-time menggunakan koneksi WebSocket.
 
-# watch mode
-$ npm run start:dev
+## 🛠️ Instalasi Proyek
 
-# production mode
-$ npm run start:prod
-```
+### Prasyarat  
+Pastikan Anda telah menginstal:  
+- [Node.js](https://nodejs.org/): Platform runtime JavaScript yang digunakan untuk menjalankan aplikasi backend.
+- [PostgreSQL](https://www.postgresql.org/): Database relasional yang digunakan untuk menyimpan data aplikasi.   
 
-## Run tests
+### Langkah-langkah Instalasi  
+1. Clone repository:  
+   bash
+   git clone https://github.com/username/repo-name.git
+2. Pindah ke direktori proyek:
+   bash
+   cd Lab-Backend
+3. Install semua dependency:
+   bash
+   npm install
+4. Salin file konfigurasi environment:
+   bash
+   cp .env.example .env
+File konfigurasi .env berisi variabel seperti URL database dan secret token:
+- DATABASE_URL=postgres://user:password@localhost:5432/db_name JWT_SECRET=your_jwt_secret PORT=3000
+5. Jalankan server:
+   bash
+   npm run start 
+6. Buka aplikasi di (http://localhost:3000)
 
-```bash
-# unit tests
-$ npm run test
+---
 
-# e2e tests
-$ npm run test:e2e
+## 📦 Instalasi Library Tambahan  
 
-# test coverage
-$ npm run test:cov
-```
+- **NestJS WebSocket dan Socket.io:** 
+    Untuk komunikasi real-time antar client-server.
+   bash
+   npm install @nestjs/websockets @nestjs/platform-socket.io socket.io
+- *Autentikasi JWT:* 
+    Untuk keamanan dan autentikasi berbasis token JSON Web Tokens.
+   bash
+   npm install @nestjs/jwt passport-jwt
+- **PostgreSQL:**
+    Integrasi TypeORM dengan PostgreSQL untuk pengelolaan database relasional.
+   bash
+   npm install @nestjs/typeorm pg typeorm   
+- *Swagger Dokumentasi API:* 
+    Untuk membuat dokumentasi interaktif API secara otomatis.
+   bash
+   npm install @nestjs/swagger swagger-ui-express
+
+---
+
+## 📖 Dokumentasi API 
+Swagger adalah alat dokumentasi API yang membantu developer memahami dan menguji API yang tersedia di aplikasi.
+- **Akses:** Buka browser dan akses Swagger pada
+bash
+http://localhost:3000/api-docs
 
 ## Deployment
 
@@ -100,7 +143,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 =======
-# LAB-BACKEND_DAY
 
-TUGAS LAB-BACKNED MENGGUNAKAN SWAGGER
->>>>>>> 4ed1d358d486acc75b75201e3f47c22adc0bc821

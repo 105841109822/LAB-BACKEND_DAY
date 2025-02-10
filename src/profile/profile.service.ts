@@ -43,6 +43,7 @@ export class ProfileService {
         return { filename, path: filePath };
     }
 
+    // Fungsi ini digunakan untuk mengirimkan foto profile user
     async sendMyFotoProfile(user_id : number) {
     const user = await this.prisma.user.findFirst({
         where : {

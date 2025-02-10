@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Res, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Query, Res, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
 import { Response } from 'express';
 import { AppService } from './app.service';
 import { ApiBearerAuth, ApiBody, ApiConsumes} from '@nestjs/swagger';
@@ -15,7 +15,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
+  @Get('mahasiswa/search')
+  async searchMahasiswa(
+    @Query('nim') nim?: string
+  ) {
+    return this.appService.searchMahasiswa(nim);
+  }
+  
   @Post("register")
   @ApiBody({type : RegisterUserDTO})
   register(@Body() user : RegisterUserDTO) {
@@ -42,7 +48,6 @@ export class AppController {
     return result;
   }
 
-  //untuk upload foto mahasiswa
   @Post('mahasiswa/:nim/upload')
   @ApiConsumes("multipart/form-data")
   @ApiBody({
@@ -94,4 +99,6 @@ export class AppController {
   getMahasiswaByNim(@Param("nim") nim : string) {
     return this.appService.getMahasiswByNim(nim)
   }
+
+  
 }
