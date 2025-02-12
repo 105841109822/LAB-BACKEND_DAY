@@ -66,15 +66,15 @@ Pastikan Anda telah menginstal:
    ```bash
    cd Lab-Backend
 3. Install semua dependency:
-   bash
+   ```bash
    npm install
 4. Salin file konfigurasi environment:
-   bash
+   ```bash
    cp .env.example .env
 File konfigurasi .env berisi variabel seperti URL database dan secret token:
 - DATABASE_URL=postgres://user:password@localhost:5432/db_name JWT_SECRET=your_jwt_secret PORT=3000
 5. Jalankan server:
-   bash
+  ```bash
    npm run start 
 6. Buka aplikasi di (http://localhost:3000)
 
@@ -84,30 +84,30 @@ File konfigurasi .env berisi variabel seperti URL database dan secret token:
 
 - **NestJS WebSocket dan Socket.io:** 
     Untuk komunikasi real-time antar client-server.
-   bash
+   ```bash
    npm install @nestjs/websockets @nestjs/platform-socket.io socket.io
 - *Autentikasi JWT:* 
     Untuk keamanan dan autentikasi berbasis token JSON Web Tokens.
-   bash
+   ```bash
    npm install @nestjs/jwt passport-jwt
 - **PostgreSQL:**
     Integrasi TypeORM dengan PostgreSQL untuk pengelolaan database relasional.
-   bash
+   ```bash
    npm install @nestjs/typeorm pg typeorm   
 - *Swagger Dokumentasi API:* 
     Untuk membuat dokumentasi interaktif API secara otomatis.
-   bash
+   ```bash
    npm install @nestjs/swagger swagger-ui-express
 
 ---
 
 ## 📖 Cara Menjalankan Proyek
 
-Swagger adalah alat dokumentasi API yang membantu developer memahami dan menguji API yang tersedia di aplikasi.
-   bash
-   npm run start : dev
+- Swagger adalah alat dokumentasi API yang membantu developer memahami dan menguji API yang tersedia di aplikasi.Jalankan Proyek dengan Perintah:
+    ```bash
+    npm run start : dev
 - **Akses:** Buka browser dan akses Swagger pada
-   bash
+    ```bash
    http://localhost:3000/api-docs
 
 ## Kesimpulan
