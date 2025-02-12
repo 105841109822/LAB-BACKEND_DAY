@@ -58,7 +58,8 @@ Pastikan Anda telah menginstal:
 - [Node.js](https://nodejs.org/): Platform runtime JavaScript yang digunakan untuk menjalankan aplikasi backend.
 - [PostgreSQL](https://www.postgresql.org/): Database relasional yang digunakan untuk menyimpan data aplikasi.   
 
-### Langkah-langkah Instalasi  
+### Langkah-langkah Instalasi 
+
 1. Clone repository:  
    ```bash
    git clone https://github.com/username/repo-name.git
@@ -75,7 +76,8 @@ File konfigurasi .env berisi variabel seperti URL database dan secret token:
 - DATABASE_URL=postgres://user:password@localhost:5432/db_name JWT_SECRET=your_jwt_secret PORT=3000
 5. Jalankan server:
   ```bash
-   npm run start 
+   npm run start
+  
 6. Buka aplikasi di (http://localhost:3000)
 
 ## 📦 Instalasi Library Tambahan 
