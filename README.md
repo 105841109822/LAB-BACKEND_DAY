@@ -78,28 +78,24 @@ File konfigurasi .env berisi variabel seperti URL database dan secret token:
    npm run start 
 6. Buka aplikasi di (http://localhost:3000)
 
----
-
-## 📦 Instalasi Library Tambahan  
+## 📦 Instalasi Library Tambahan 
 
 - **NestJS WebSocket dan Socket.io:** 
-    Untuk komunikasi real-time antar client-server.
-   ```bash
-   npm install @nestjs/websockets @nestjs/platform-socket.io socket.io
+  Untuk komunikasi real-time antar client-server.
+     ```bash
+     npm install @nestjs/websockets @nestjs/platform-socket.io socket.io
 - *Autentikasi JWT:* 
-    Untuk keamanan dan autentikasi berbasis token JSON Web Tokens.
-   ```bash
-   npm install @nestjs/jwt passport-jwt
+  Untuk keamanan dan autentikasi berbasis token JSON Web Tokens.
+     ```bash
+     npm install @nestjs/jwt passport-jwt
 - **PostgreSQL:**
-    Integrasi TypeORM dengan PostgreSQL untuk pengelolaan database relasional.
-   ```bash
-   npm install @nestjs/typeorm pg typeorm   
+  Integrasi TypeORM dengan PostgreSQL untuk pengelolaan database relasional.
+     ```bash
+     npm install @nestjs/typeorm pg typeorm   
 - *Swagger Dokumentasi API:* 
-    Untuk membuat dokumentasi interaktif API secara otomatis.
-   ```bash
-   npm install @nestjs/swagger swagger-ui-express
-
----
+  Untuk membuat dokumentasi interaktif API secara otomatis.
+     ```bash
+     npm install @nestjs/swagger swagger-ui-express
 
 ## 📖 Cara Menjalankan Proyek
 
