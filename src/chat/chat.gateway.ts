@@ -1,37 +1,49 @@
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { ChatService } from './chat.service';
-import { Server } from 'http';
-import { Socket } from 'socket.io';
+import { ConnectedSocket, MessageBody } from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
 
-@WebSocketGateway(
-  {
-    cors : {
-    origin : "*"
+@WebSocketGateway({
+  cors: {
+    origin: '*',
   },
-    path : "/socket"
-  }
-)
+  path: '/socket',
+})
+
 export class ChatGateway {
-  constructor(private readonly chatService: ChatService) {}
-
   @WebSocketServer()
-  Server : Server;
+  server: Server;
 
-  // handleConnection berfungsi untuk mengetahui apakah user sudah terkoneksi maka akan memberikan output "connected"
-  async handleConnection(socket : Socket) { 
-    console.log("connected")
-    }
-  
-  // handleDisconnect berfungsi untuk mengetahui apakah user sudah terputus maka akan memberikan output "disconnected"
-    async handleDisconnect(socket : Socket) {
-    console.log("disconnected")
+  // Connection handler
+  async handleConnection(socket: Socket) {
+    console.log(`User connected: ${socket.id}`);
+    socket.emit('chat-receive', { sender: 'Server', message: 'Welcome to the chat!' });
+  }
+
+  async handleDisconnect(socket: Socket) {
+    this.server.emit('chat-receive', { sender: 'Server', message: `${socket.id} disconnected` });
+    console.log(`User disconnected: ${socket.id}`);
+  }
+
+  // Send message event
+  @SubscribeMessage('chat-send')
+  async sendMessage(
+    @ConnectedSocket() socket: Socket,
+    @MessageBody() data: any,
+  ) {
+    const { message, room } = data;
+
+    if (!message) {
+      socket.emit('chat-error', 'Message cannot be empty');
+      return;
     }
 
-  // event listener untuk mengetahui apa yang diterima dari client dan akan mengirimkan pesan ke client lain
-  @SubscribeMessage("chat-send")
-    async sendMessage(socket : Socket, data : any) { 
-      const {message} = data
-      this.Server.emit("chat-receive", message)
+    if (room) {
+      socket.join(room);
+      socket.emit('chat-receive', { sender: 'Server', message: `You joined room: ${room}` });
+      this.server.to(room).emit('chat-receive', { sender: socket.id, message });
+    } else {
+      this.server.emit('chat-receive', { sender: socket.id, message });
     }
+  }
   
 }

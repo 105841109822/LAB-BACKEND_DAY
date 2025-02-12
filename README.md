@@ -24,7 +24,7 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-# 🚀 Lab Backend API
+# 🚀 Laporan Proyek Nest.js
 
 Lab Backend adalah proyek backend berbasis Node.js dan NestJS yang menyediakan API untuk memproses data, mengelola user, serta mendukung komunikasi real-time dengan WebSocket.
 
@@ -34,6 +34,10 @@ Lab Backend adalah proyek backend berbasis Node.js dan NestJS yang menyediakan A
 - Dokumentasi API menggunakan Swagger
 - Komunikasi real-time menggunakan WebSocket
 - Manajemen database dengan PostgreSQL
+
+## Struktur Folder Proyek
+![Roadmap](./assets/Struktur-Proyek.jpg)
+Lihat roadmap proyek ini di [roadmap.sh](https://roadmap.sh/r/lab-yrg3x).
 
 ## 💻 Tech Stack
 
@@ -97,37 +101,18 @@ File konfigurasi .env berisi variabel seperti URL database dan secret token:
 
 ---
 
-## 📖 Dokumentasi API 
+## 📖 Cara Menjalankan Proyek
+
 Swagger adalah alat dokumentasi API yang membantu developer memahami dan menguji API yang tersedia di aplikasi.
+   bash
+   npm run start : dev
 - **Akses:** Buka browser dan akses Swagger pada
-bash
-http://localhost:3000/api-docs
+   bash
+   http://localhost:3000/api-docs
 
-## Deployment
+## Kesimpulan
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Latihan menggunakan NestJS memberikan pemahaman tentang struktur proyek yang modular, pemanfaatan dependency injection, serta pemisahan logika dalam Controller dan Service. Penggunaan DTO membantu dalam validasi data, sementara Prisma ORM mempermudah pengelolaan database. Selain itu, implementasi WebSockets memungkinkan komunikasi real-time, dan fitur authentication dengan JWT meningkatkan keamanan aplikasi. Dengan menerapkan konsep middleware, guards, dan modularisasi, NestJS menjadi framework yang efisien, scalable, dan mudah dikelola untuk pengembangan backend. 
 
 ## Support
 
