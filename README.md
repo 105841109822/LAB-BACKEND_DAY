@@ -37,7 +37,7 @@ Lab Backend adalah proyek backend berbasis Node.js dan NestJS yang menyediakan A
 
 ## Struktur Folder Proyek
 ![Image](https://github.com/user-attachments/assets/7d6fcfb4-1713-4634-998c-2fc23102d2d5)
-Lihat roadmap proyek ini di [roadmap.sh](https://roadmap.sh/r/lab-yrg3x).
+Lihat Penjelasan Lengkap Setiap File proyek ini di [roadmap.sh](https://roadmap.sh/r/lab-yrg3x).
 
 ## 💻 Tech Stack
 
