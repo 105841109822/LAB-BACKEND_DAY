@@ -60,10 +60,10 @@ Pastikan Anda telah menginstal:
 
 ### Langkah-langkah Instalasi  
 1. Clone repository:  
-   bash
+   ```bash
    git clone https://github.com/username/repo-name.git
 2. Pindah ke direktori proyek:
-   bash
+   ```bash
    cd Lab-Backend
 3. Install semua dependency:
    bash
