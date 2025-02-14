@@ -10,11 +10,11 @@ async function bootstrap() {
 
   app.use(cookieParser())
 
-  app.enableCors({ //mengakses  ip address, jika menggunakan * maka semua ip address bisa mengakses aplikasi
+  app.enableCors({
     origin : "*"
   })
 
-  app.useGlobalPipes( // menerapkan validata dari file dto ke dalam aplikasi
+  app.useGlobalPipes(
     new ValidationPipe({
       transform : true
     }))
@@ -29,7 +29,6 @@ async function bootstrap() {
     
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, documentFactory);
-
 
   await app.listen(process.env.PORT ?? 3000);
 }

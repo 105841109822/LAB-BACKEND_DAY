@@ -1,60 +1,68 @@
-// Backend: ChatGateway.ts
 import { SubscribeMessage, WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
+import path from 'path';
 import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway({
   cors: {
     origin: "*"
-  },
-  path: "/socket"
+  }
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @WebSocketServer()
   server: Server;
 
-  private users = new Map<string, { username: string, room: string }>();
+  private rooms = new Map<string, Set<string>>(); // room -> set of usernames
+  private socketToUser = new Map<string, { username: string, room: string }>();
 
-  async handleConnection(socket: Socket) {
+  handleConnection(socket: Socket) {
     console.log(`User connected: ${socket.id}`);
   }
 
-  async handleDisconnect(socket: Socket) {
-    console.log(`User disconnected: ${socket.id}`);
-    const user = this.users.get(socket.id);
+  handleDisconnect(socket: Socket) {
+    const user = this.socketToUser.get(socket.id);
     if (user) {
-      this.users.delete(socket.id);
-      this.updateUserList(user.room);
+      this.socketToUser.delete(socket.id);
+      const roomUsers = this.rooms.get(user.room);
+      roomUsers?.delete(user.username);
+      this.updateRoomUsers(user.room);
+      this.server.to(user.room).emit('chat-receive', {
+        from: 'System',
+        message: `${user.username} has left the chat.`
+      });
     }
+    console.log(`User disconnected: ${socket.id}`);
   }
 
   @SubscribeMessage('join-room')
-  async handleJoinRoom(socket: Socket, payload: { username: string, room: string }) {
-    socket.join(payload.room);
-    this.users.set(socket.id, { username: payload.username, room: payload.room });
-    this.updateUserList(payload.room);
-  }
-
-  @SubscribeMessage('leave-room')
-  async handleLeaveRoom(socket: Socket, payload: { username: string, room: string }) {
-    socket.leave(payload.room);
-    this.users.delete(socket.id);
-    this.updateUserList(payload.room);
-  }
-
-  private updateUserList(room: string) {
-    const usersInRoom = Array.from(this.users.values())
-      .filter(user => user.room === room)
-      .map(user => user.username);
-
-    this.server.to(room).emit('user-list', usersInRoom);
-  }
-
-  @SubscribeMessage('chat-room')
-  async handleRoomMessage(socket: Socket, payload: { username: string, room: string, message: string }) {
-    this.server.to(payload.room).emit('room-message', {
-      username: payload.username,
-      message: payload.message
+  handleJoinRoom(socket: Socket, payload: { username: string, room: string }) {
+    const { username, room } = payload;
+    socket.join(room);
+    if (!this.rooms.has(room)) {
+      this.rooms.set(room, new Set());
+    }
+    this.rooms.get(room)?.add(username);
+    this.socketToUser.set(socket.id, { username, room });
+    this.updateRoomUsers(room);
+    this.server.to(room).emit('chat-receive', {
+      from: 'System',
+      message: `${username} joined the room.`
     });
+  }
+
+  @SubscribeMessage('group-message')
+  handleGroupMessage(socket: Socket, payload: { room: string, message: string }) {
+    const user = this.socketToUser.get(socket.id);
+    if (user) {
+      this.server.to(payload.room).emit('chat-receive', {
+        from: user.username,
+        message: payload.message
+      });
+    }
+  }
+
+  private updateRoomUsers(room: string) {
+    const users = Array.from(this.rooms.get(room) || []);
+    this.server.to(room).emit('user-list', users);
   }
 }
