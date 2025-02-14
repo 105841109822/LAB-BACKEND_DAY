@@ -15,6 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
+
   @Get('mahasiswa/search')
   async searchMahasiswa(
     @Query('nim') nim?: string
