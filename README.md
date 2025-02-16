@@ -300,59 +300,53 @@ Pastikan telah menginstal:
 
 ### Langkah-langkah Instalasi 
 1. Clone repository:
-   bash
+   ```bash
    git clone https://github.com/username/repo-name.git
    
 2. Pindah ke direktori proyek:
-   bash
+   ```bash
    cd Lab-Backend
    
 3. Install semua dependency:
-   bash
+   ```bash
    npm install
    
 4. Salin file konfigurasi environment:
-   bash
+   ```bash
    cp .env.example .env
    
-   Sesuaikan variabel di .env, misalnya:
-   bash
-   DATABASE_URL=postgres://user:password@localhost:5432/db_name
-   JWT_SECRET=your_jwt_secret
-   PORT=3000
-   
 5. Jalankan server:
-   bash
+   ```bash
    npm run start
    
 6. Akses aplikasi di http://localhost:3000
 
 ## 📦 Instalasi Library Tambahan 
 - *NestJS WebSocket dan Socket.io:*  
-  bash
+  ```bash
   npm install @nestjs/websockets @nestjs/platform-socket.io socket.io
   
 - *Autentikasi JWT:*  
-  bash
+  ```bash
   npm install @nestjs/jwt passport-jwt
   
 - *PostgreSQL dan TypeORM:*  
-  bash
+  ```bash
   npm install @nestjs/typeorm pg typeorm   
   
 - *Swagger untuk Dokumentasi API:*  
-  bash
+  ```bash
   npm install @nestjs/swagger swagger-ui-express
   
 
 ## 📖 Cara Menjalankan Proyek
+
 Swagger digunakan untuk mendokumentasikan dan menguji API.
-Jalankan proyek dengan perintah:
-bash
-npm run start:dev
+Jalankan proyek dengan perintah:  
+
+    npm run start:dev
 
 Akses Swagger di:
-bash
 http://localhost:3000/api-docs
 
 
