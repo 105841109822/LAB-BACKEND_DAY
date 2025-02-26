@@ -18,7 +18,7 @@ export class AppController {
 
   @Get()
   getHome(): string {
-    return 'Welcome to the API!';
+    return 'Hello Dunia Day!';
   }
 
   @Get('mahasiswa/search')
